@@ -30,6 +30,22 @@
 
 
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+
+
 void play_system_sound() {
 
     pid_t pid = fork();
@@ -110,17 +126,15 @@ int main() {
 
     if (connect(sockid, (struct sockaddr *) &ssock_addr, sizeof(ssock_addr)) < 0) {
 
-        perror("Eroare conectare la server");
+        perror(ANSI_COLOR_RED"[E] Eroare conectare la server"ANSI_COLOR_RESET);
 
         return -1;
 
     }
 
-    printf("===Ati conectat la server cu succes===\n");
 
 
-
-    printf("_________     _____   _______\n");
+    printf(ANSI_COLOR_CYAN"_________     _____   _______\n");
 
     printf("|        |   /  ___|  |   _  \\ \n");
 
@@ -130,7 +144,7 @@ int main() {
 
     printf("   |  |     \\   \\_    |  |\n");
 
-    printf("   |__|      \\____|   |__|\n"); 
+    printf("   |__|      \\____|   |__|\n"ANSI_COLOR_RESET); 
 
     printf("Client\n");
 
@@ -138,7 +152,9 @@ int main() {
 
     printf("to get help use command .h\n");
 
-    printf("Terminate connection with CTRL+C\n\n"); 
+    printf("Terminate connection with CTRL+C\n\n");
+
+    printf("=====================================\n"); 
 
     while (1) {
 
@@ -160,7 +176,7 @@ int main() {
 
 	    if (write(sockid, msg, strlen(msg)) < 0) {
 
-		perror("[E] Eroare scriere in socket");
+		perror(ANSI_COLOR_RED"[E] Eroare scriere in socket"ANSI_COLOR_RESET);
 
 		break;
 
@@ -174,7 +190,7 @@ int main() {
 
 	    if (read(sockid, msg, sizeof(msg)) < 0) {
 
-		perror("[E] Eroare citire din socket");
+		perror(ANSI_COLOR_RED"[E] Eroare citire din socket"ANSI_COLOR_RESET);
 
 		break;
 
@@ -194,9 +210,9 @@ int main() {
 
 	    play_system_sound();
 
-	    printf("[i] Timp masurat: %.6f secunde\n", elapsed);
+	    printf(ANSI_COLOR_BLUE"[i] Timp masurat: %.6f secunde\n"ANSI_COLOR_RESET, elapsed);
 
-	    printf("[R] Serverul spune: %s\n", msg);
+	    printf(ANSI_COLOR_GREEN"[R] Serverul spune: %s\n"ANSI_COLOR_RESET, msg);
 
 	    printf("=====================================\n");
 

@@ -10,6 +10,7 @@
 
 #define MY_PORT_ID 6000 /* numar > 5000 */
 
+
 void handle_client(int client_socket) {
     char buffer[255];
     clock_t start, end;
@@ -47,7 +48,7 @@ void handle_client(int client_socket) {
             }
 	}else if(strncmp(buffer, ".t", 2) == 0){
 		printf("[i] clientul a cerut data si ora actuala\n");
-		char response[100];
+		char response[1000];
 		struct timeval tv;
 		time_t current_time;
 		struct tm *local_time;
@@ -116,6 +117,7 @@ int main() {
     printf("Server\n");
     printf("running on //10.0.2.15:6000\n");
     printf("Terminate connection with CTRL+C\n\n"); 
+    printf("=====================================\n");
     while (1) {
 	printf("====Asteptare la client====\n");
         len = sizeof(csock_addr);
